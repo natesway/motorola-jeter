@@ -474,6 +474,8 @@ mountroot() {
 		done
 	fi
 
+	ab_slot_suffix=$(grep -o 'androidboot\.slot_suffix=..' /proc/cmdline |  cut -d "=" -f2)
+
 	# Some devices don't include slot suffix in systempart cmdline parameter
 	# as android creates a symlink for the active slot... Check for this
 	# Match any string ending in "_a" or "_b", e.g. /dev/disk/by-partlabel/system_a
