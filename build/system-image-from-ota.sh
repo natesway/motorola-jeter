@@ -40,7 +40,7 @@ TOTAL=$(cat $COMMAND_FILE | wc -l)
 
 progress() {
     # Devide by 0 will make go boom!
-    if [ "$1" == "0" ]; then
+    if [ "$1" -eq "0" ]; then
         # echo "0" > cmd_pipe
         @
     fi
@@ -180,7 +180,7 @@ do
                 system)
                     FULL_IMAGE=1
                     rm -f "$OUT/rootfs.img"
-                    dd if=/dev/zero of="$OUT/rootfs.img" seek=750K bs=4096 count=0
+                    dd if=/dev/zero of="$OUT/rootfs.img" seek=700K bs=4096 count=0
                     mkfs.ext4 -F "$OUT/rootfs.img"
                 ;;
 
