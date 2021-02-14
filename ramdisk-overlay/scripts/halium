@@ -36,6 +36,8 @@ identify_boot_mode() {
 		androidboot.mode=*)
 			android_bootmode=${x#*=}
 			;;
+		skip_initramfs)
+			skip_initramfs="y"
 		esac
 	done
 
@@ -55,6 +57,11 @@ identify_boot_mode() {
 		8) BOOT_MODE="android" ;; # Power off charging
 		9) BOOT_MODE="android" ;; # Low power charging
 		esac
+	fi
+
+	# System-as-root device
+	if [ -f /ramdisk-recovery.img ] && [ -z "$skip_initramfs" ]; then
+		BOOT_MODE="recovery"
 	fi
 
 	tell_kmsg "boot mode: $BOOT_MODE"
