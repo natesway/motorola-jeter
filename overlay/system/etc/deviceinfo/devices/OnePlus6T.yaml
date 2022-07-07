@@ -1,0 +1,3 @@
+OnePlus6T:
+  DoubleTapToWake:
+    - /proc/touchpanel/double_tap_enable|1|0
