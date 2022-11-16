@@ -1,1 +1,24 @@
+name: build halium
+on: [ push, pull_request, workflow_dispatch ]
 
+jobs:
+  build:
+    name: Create Release
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: "build halium"
+        id: latest_tag
+        run: | 
+            sudo apt update
+            sudo apt install android-tools-mkbootimg bc build-essential ca-certificates curl git kmod libssl-dev libtinfo5 python2 sudo unzip wget xz-utils cpio -y --no-install-recommends
+            sudo ln -sf python2.7 /usr/bin/python
+            ./build.sh
+      - name: capture build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+         name: Artifacts
+         path: ./out
